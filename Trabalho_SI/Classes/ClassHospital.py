@@ -37,5 +37,7 @@ class Hospital:
     def set_salas(self, salas: int):
         self.salas = salas
 
-    def toString(self):
-        return (f"listaRecetores: {self.listaRecetores}, coordenada_x: {self.coordenada_x}, coordenada_y: {self.coordenada_y}, equipasMedicas: {self.equipasMedicas}")
+
+    def __str__(self):
+        return (f"Hospital[listaRecetores={self.listaRecetores}, coordenada_x={self.coordenada_x}, "
+                f"coordenada_y={self.coordenada_y}, equipasMedicas={self.equipasMedicas}, salas={self.salas}]")

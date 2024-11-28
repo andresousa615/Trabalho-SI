@@ -1,7 +1,5 @@
-from spade.agent import Agent
 from spade import agent
-from Trabalho_SI.Behaviours.Manager_Behaviours import *
-from Trabalho_SI.Behaviours.Manager_Behaviours.Manager_Cyclic import ManagerBehaviour_cyclic
+from Trabalho_SI.Behaviours.Manager_Cyclic import ManagerBehaviour_cyclic
 
 
 # Receiver Agent: Recebe mensagens e as imprime

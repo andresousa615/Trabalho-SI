@@ -24,11 +24,17 @@ class RecetorBehaviour_registo(OneShotBehaviour): #envia uma mensagem para regis
         jid_recetor = str(self.agent.jid)
         recetor= Recetor(jid_recetor,urgencia,sangue,orgao,False)
 
+        # Obter a lista de hospitais
+        hospital_jids = self.get("hospital_jids")
+        if not hospital_jids:
+            print("Nenhum hospital disponível para registrar.")
+            return
 
-        manager_jid= self.get("") #vamos precisar de uma lista dos jids dos hospitais, e seleciona um aleatório
+        # Escolher um hospital aleatoriamente
+        hospital_jid = random.choice(hospital_jids)
 
         #print("Manager jid no hospital", manager_jid)
-        msg = Message(to=manager_jid)  # Definindo o JID do receptor (manager)
+        msg = Message(to=hospital_jid)  # Definindo o JID do receptor (manager)
         msg.set_metadata("performative","registarRecetor")
 
         msg.body = jsonpickle.encode(recetor) # envia o objeto classe Taxi para o Manager
