@@ -1,17 +1,17 @@
 class Hospital:
 
-    def __init__(self, listaPacientes: list, coordenada_x: float,coordenada_y: float, equipasMedicas: int, salas: int):
-        self.listaPacientes = listaPacientes
+    def __init__(self, listaRecetores: list, coordenada_x: float, coordenada_y: float, equipasMedicas: int, salas: int) -> object:
+        self.listaRecetores = listaRecetores
         self.coordenada_x = coordenada_x
         self.coordenada_y = coordenada_y
         self.equipasMedicas = equipasMedicas
         self.salas = salas
 
-    def get_listaPacientes(self):
-        return self.listaPacientes
+    def get_listaRecetores(self):
+        return self.listaRecetores
 
-    def set_listaPacientes(self, listaPacientes: list):
-        self.listaPacientes = listaPacientes
+    def set_listaRecetores(self, listaRecetores: list):
+        self.listaRecetores = listaRecetores
 
     def get_coordenada_x(self):
         return self.coordenada_x
@@ -38,4 +38,4 @@ class Hospital:
         self.salas = salas
 
     def toString(self):
-        return (f"listaPacientes: {self.listaPacientes}, coordenada_x: {self.coordenada_x}, coordenada_y: {self.coordenada_y}, equipasMedicas: {self.equipasMedicas}")
+        return (f"listaRecetores: {self.listaRecetores}, coordenada_x: {self.coordenada_x}, coordenada_y: {self.coordenada_y}, equipasMedicas: {self.equipasMedicas}")

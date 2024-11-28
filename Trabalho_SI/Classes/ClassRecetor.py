@@ -1,10 +1,10 @@
 
 class Recetor:
 
-    def __init__(self, urgencia: str, compatibilidade: str, jid_paciente: str, orgao_atribuido: bool, nome_orgao: str ):
+    def __init__(self, jid_recetor: str, urgencia: str, compatibilidade: str, nome_orgao: str , orgao_atribuido: bool):
         self.urgencia = urgencia
         self.compatibilidade = compatibilidade
-        self.jid_paciente = jid_paciente
+        self.jid_recetor = jid_recetor
         self.orgao_atribuido = orgao_atribuido
         self.nome_orgao = nome_orgao
 
@@ -20,11 +20,11 @@ class Recetor:
     def set_compatibilidade(self, compatibilidade: str):
         self.compatibilidade = compatibilidade
 
-    def get_jid_paciente(self):
-        return self.jid_paciente
+    def get_jid_recetor(self):
+        return self.jid_recetor
 
-    def set_jid_paciente(self, jid_paciente: str):
-        self.jid_paciente = jid_paciente
+    def set_jid_recetor(self, jid_recetor: str):
+        self.jid_recetor = jid_recetor
 
     def get_orgao_atribuido(self):
         return self.orgao_atribuido
@@ -39,4 +39,4 @@ class Recetor:
         self.nome_orgao = nome_orgao
 
     def toString(self):
-        return (f"urgencia: {self.urgencia}, compatibilidade: {self.compatibilidade}, jid_paciente: {self.jid_paciente}, orgao_atribuido: {self.orgao_atribuido}, nome_orgao: {self.nome_orgao}")
+        return (f"jid_recetor: {self.jid_recetor}, urgencia: {self.urgencia}, compatibilidade: {self.compatibilidade},  orgao_atribuido: {self.orgao_atribuido}, nome_orgao: {self.nome_orgao}")
