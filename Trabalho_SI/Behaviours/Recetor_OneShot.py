@@ -12,12 +12,12 @@ from Trabalho_SI.Classes.ClassHospital import Hospital
 class RecetorBehaviour_registo(OneShotBehaviour): #envia uma mensagem para registar 1 Taxi no Manager
     async def run(self):
         lista_urgencia=['Pouco Urgente','Medio Urgente','Muito Urgente','Emergencia']
-        lista_tipo_sangue = ['A', 'B', 'AB', 'O-', 'O+']
+        lista_tipo_sangue = ['A+','A-', 'B+','B-', 'AB+','AB-', 'O-', 'O+']
         lista_orgaos= ['coracao','figado','rim']
         #coordenadas de onde o Taxi vai spawnar
-        x = randrange(0, 3)
-        y = randrange(0, 2)
-        z = randrange(0, 2)
+        x = randrange(0, 4)
+        y = randrange(0, 8)
+        z = randrange(0, 3)
         urgencia=lista_urgencia[x]
         sangue= lista_tipo_sangue[y]
         orgao = lista_orgaos[z]

@@ -12,15 +12,15 @@ from Trabalho_SI.Classes.ClassHospital import Hospital
 class OrgaoBehaviour_gerarOrgao(PeriodicBehaviour): #envia uma mensagem para registar 1 Orgao no Transplante
     async def run(self):
 
-        lista_tipo_sangue = ['A', 'B', 'AB', 'O-', 'O+']
+        lista_tipo_sangue = ['A+','A-', 'B+','B-', 'AB+','AB-', 'O-', 'O+']
         lista_orgaos= ['coracao','figado','rim']
 
         #coordenadas de onde o Taxi vai spawnar
         coordenada_x = random.randint(0, 1000)  # Coordenada X aleatória
         coordenada_y = random.randint(0, 1000)
 
-        sangue_index = randrange(0, 4)
-        orgao_index = randrange(0, 2)
+        sangue_index = randrange(0, 8)
+        orgao_index = randrange(0, 3)
 
         sangue= lista_tipo_sangue[sangue_index]
         orgao = lista_orgaos[orgao_index]

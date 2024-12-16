@@ -8,18 +8,22 @@ def determinar_recetores_compativeis(orgao, recetores):
     """
     # Mapeamento de compatibilidade de sangue (dadores universais, etc.)
     compatibilidade_sanguinea = {
-        "O-": ["O-"],  # O- é o dador universal
-        "O+": ["O-", "O+"],
-        "A-": ["O-", "A-"],
-        "A+": ["O-", "O+", "A-", "A+"],
-        "B-": ["O-", "B-"],
-        "B+": ["O-", "O+", "B-", "B+"],
-        "AB-": ["O-", "A-", "B-", "AB-"],
-        "AB+": ["O-", "O+", "A-", "A+", "B-", "B+", "AB-", "AB+"]  # AB+ é o recetor universal
+        "O-": ["O-", "O+", "A-", "A+", "B-", "B+", "AB-", "AB+"],  # Doador universal
+        "O+": ["O+", "A+", "B+", "AB+"],  # Doa apenas para positivos
+        "A-": ["A-", "A+", "AB-", "AB+"],  # A- doa para A e AB
+        "A+": ["A+", "AB+"],  # A+ doa apenas para positivos A e AB
+        "B-": ["B-", "B+", "AB-", "AB+"],  # B- doa para B e AB
+        "B+": ["B+", "AB+"],  # B+ doa apenas para positivos B e AB
+        "AB-": ["AB-", "AB+"],  # AB- doa para AB
+        "AB+": ["AB+"]  # Receptor universal
     }
 
     # Definição de prioridades de urgência
-    prioridade = {"Alta": 1, "Média": 2, "Baixa": 3, "Pouco Urgente": 4}
+    prioridade = {"Emergencia": 1, "Muito Urgente": 2, "Medio Urgente": 3, "Pouco Urgente": 4}
+
+    print(orgao)
+    for recetor in recetores:
+        print(recetor)
 
     # Filtrar recetores compatíveis
     recetores_compativeis = [
