@@ -25,6 +25,11 @@ def determinar_recetores_compativeis(orgao, recetores):
     for recetor in recetores:
         print(recetor)
 
+
+    print(orgao)
+    for recetor in recetores:
+        print(recetor)
+
     # Filtrar recetores compatíveis
     recetores_compativeis = [
         recetor for recetor in recetores
@@ -35,4 +40,5 @@ def determinar_recetores_compativeis(orgao, recetores):
 
     # Ordenar por urgência
     recetores_compativeis.sort(key=lambda r: prioridade.get(r.urgencia, float('inf')))
+
     return recetores_compativeis
