@@ -68,7 +68,7 @@ if __name__ == "__main__":
         # Parar os agentes de forma segura
         manager_agent.stop()
         hospital_agent.stop()
-        recetor_agent.stop()
+        #recetor_agent.stop()
 
 
     # Finalizar SPADE
