@@ -45,6 +45,8 @@ if __name__ == "__main__":
         future = transporte_agent.start()
         future.result()
 
+
+
     async def create_recetor_agents(hospital_jids):
         a=0
         while a < 50:
@@ -58,7 +60,7 @@ if __name__ == "__main__":
                 future.result()
 
             # Espera 5 segundos antes de criar os próximos clientes
-            await asyncio.sleep(5)
+            await asyncio.sleep(10)
             a += 10
 
     try:

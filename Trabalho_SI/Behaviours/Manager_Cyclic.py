@@ -48,3 +48,11 @@ class ManagerBehaviour_cyclic(CyclicBehaviour):
                     # Armazenar o objeto Hospital no dicionário, associado ao JID do agente
                     self.transportes_dic[transporte_jid] = transporte_recebido
                     print(f"JID: {transporte_jid}, objeto Hospital: {transporte_recebido}")  # Aqui imprime o Hospital de forma legível
+
+            if performative == "pedirPacientes":  # adiciona o Hospital ao dicionário de Hospitals
+                print("Recebida mensagem do tipo 'pedirPacientes'")
+                if msg.body:
+                    reply_msg = msg.make_reply()
+                    reply_msg.set_metadata("performative", "informPacientes")
+                    reply_msg.body = jsonpickle.encode(self.recetores_dic)
+                    await self.send(reply_msg)

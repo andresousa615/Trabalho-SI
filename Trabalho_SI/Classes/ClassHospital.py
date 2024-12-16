@@ -37,7 +37,7 @@ class Hospital:
     def set_salas(self, salas: int):
         self.salas = salas
 
-
     def __str__(self):
-        return (f"Hospital[listaRecetores={self.listaRecetores}, coordenada_x={self.coordenada_x}, "
+        listaRecetores_str = ', '.join([str(recetor) for recetor in self.listaRecetores])
+        return (f"Hospital[listaRecetores=[{listaRecetores_str}], coordenada_x={self.coordenada_x}, "
                 f"coordenada_y={self.coordenada_y}, equipasMedicas={self.equipasMedicas}, salas={self.salas}]")

@@ -5,8 +5,8 @@ class Recetor:
         self.urgencia = urgencia
         self.sangue = sangue
         self.jid_recetor = jid_recetor
-        self.orgao_atribuido = orgao_atribuido
         self.nome_orgao = nome_orgao
+        self.orgao_atribuido = orgao_atribuido
 
     def get_urgencia(self):
         return self.urgencia
@@ -40,3 +40,6 @@ class Recetor:
 
     def __str__(self):
         return (f"jid_recetor: {self.jid_recetor}, urgencia: {self.urgencia}, sangue: {self.sangue},  orgao_atribuido: {self.orgao_atribuido}, nome_orgao: {self.nome_orgao}")
+
+    def _repr_(self):
+        return f"Recetor({repr(self.jid_recetor)}, {repr(self.urgencia)})"
