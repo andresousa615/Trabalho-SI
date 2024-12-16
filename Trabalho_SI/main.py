@@ -1,21 +1,21 @@
-from Agentes.AgentManager import AgentManager
 from Agentes.AgentHospital import AgentHospital
 from Agentes.AgentRecetor import AgentRecetor
 from Agentes.AgentTransporte import AgentTransporte
+from Agentes.AgentOrgao import AgentOrgao
 from spade import quit_spade
 import asyncio
 from random import randrange
 
-from Trabalho_SI.Agentes.AgentManager import AgentManager
+from Trabalho_SI.Agentes.AgentTransplante import AgentTransplante
 
 if __name__ == "__main__":
 
-    manager_jid = "manager@laptop-hjqmpgkj.mshome.net"  #
-    manager_password = "NOPASSWORD"
+    transplante_jid = "manager@laptop-hjqmpgkj.mshome.net"  #
+    transplante_password = "NOPASSWORD"
 
     # Inicializando o agente Gestor
-    manager_agent = AgentManager(manager_jid, manager_password)
-    future = manager_agent.start()
+    transplante_agent = AgentTransplante(transplante_jid, transplante_password)
+    future = transplante_agent.start()
     future.result()
 
     hospital_jids = []
@@ -31,7 +31,7 @@ if __name__ == "__main__":
         nr_salas = randrange(1, 5)
 
         hospital_agent = AgentHospital(hospital_jid, hospital_password, x, y, nr_equipas, nr_salas)
-        hospital_agent.set("manager_jid", manager_jid)
+        hospital_agent.set("transplante_jid", transplante_jid)
         future = hospital_agent.start()
         future.result()
 
@@ -41,11 +41,18 @@ if __name__ == "__main__":
         transporte_jid = f"transporte{i}@laptop-hjqmpgkj.mshome.net"
         transporte_password = "NOPASSWORD"
         transporte_agent = AgentTransporte(transporte_jid, transporte_password)
-        transporte_agent.set("manager_jid", manager_jid)
+        transporte_agent.set("transplante_jid", transplante_jid)
         future = transporte_agent.start()
         future.result()
 
+    orgao_jid = "orgao@laptop-hjqmpgkj.mshome.net"  #
+    orgao_password = "NOPASSWORD"
 
+    # Inicializando o agente Orgao
+    orgao_agent = AgentOrgao(orgao_jid, orgao_password)
+    orgao_agent.set("transplante_jid", transplante_jid)
+    future = orgao_agent.start()
+    future.result()
 
     async def create_recetor_agents(hospital_jids):
         a=0
@@ -54,7 +61,7 @@ if __name__ == "__main__":
                 recetor_jid = "recetor" + str(i) + "@laptop-hjqmpgkj.mshome.net"
                 recetor_password = "NOPASSWORD"
                 recetor_agent = AgentRecetor(recetor_jid, recetor_password)
-                recetor_agent.set("manager_jid", manager_jid)
+                recetor_agent.set("transplante_jid", transplante_jid)
                 recetor_agent.set("hospital_jids", hospital_jids)
                 future = recetor_agent.start()
                 future.result()
@@ -68,7 +75,7 @@ if __name__ == "__main__":
         asyncio.run(asyncio.sleep(1000))  # Tempo suficiente para interagir
     finally:
         # Parar os agentes de forma segura
-        manager_agent.stop()
+        transplante_agent.stop()
         hospital_agent.stop()
         #recetor_agent.stop()
 

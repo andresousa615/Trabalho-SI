@@ -22,10 +22,10 @@ class HospitalBehaviour_registo(OneShotBehaviour):
         hospital = Hospital(lista_recetores, x, y, nr_equipas, nr_salas)
 
         # Recupera o JID do gestor a partir do agente
-        manager_jid = self.agent.get("manager_jid")
+        transplante_jid = self.agent.get("transplante_jid")
 
         # Cria a mensagem para o gestor
-        msg = Message(to=manager_jid)
+        msg = Message(to=transplante_jid)
         msg.set_metadata("performative", "registarHospital")  # Tipo da mensagem
         msg.body = jsonpickle.encode(hospital)  # Envia o objeto hospital serializado
 
@@ -49,7 +49,7 @@ class HospitalReceiveRecetorBehaviour(CyclicBehaviour):
 
 
                     #Atualizar as informações no Manager
-                    manager_jid = self.agent.get("manager_jid")
+                    transplante_jid = self.agent.get("transplante_jid")
                     x = self.agent.x
                     y = self.agent.y
                     nr_equipas = self.agent.nr_equipas
@@ -58,7 +58,7 @@ class HospitalReceiveRecetorBehaviour(CyclicBehaviour):
                     hospital = Hospital(lista_recetores, x, y, nr_equipas, nr_salas)
 
                     # Cria a mensagem para o gestor
-                    msg = Message(to=manager_jid)
+                    msg = Message(to=transplante_jid)
                     msg.set_metadata("performative", "atualizarHospital")  # Tipo da mensagem
                     msg.body = jsonpickle.encode(hospital)  # Envia o objeto hospital serializado
 

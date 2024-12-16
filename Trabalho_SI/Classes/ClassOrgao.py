@@ -48,6 +48,6 @@ class Orgao:
     # Representação em string
     def __str__(self):
         return (f"jid_orgao: {self.jid_orgao}, sangue: {self.sangue}, nome_orgao: {self.nome_orgao}, "
-                f"x: {self.x}, y: {self.y}, validade: {self.validade} dias")
+                f"x: {self.x}, y: {self.y}, validade: {self.validade} km")
 
 

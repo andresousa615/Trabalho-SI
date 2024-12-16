@@ -33,10 +33,10 @@ class OrgaoBehaviour_gerarOrgao(PeriodicBehaviour): #envia uma mensagem para reg
         objeto_orgao = Orgao(jid_orgao, sangue, orgao,  coordenada_x, coordenada_y, validade_orgao)
 
         #Registar no AgentTransplante
+        transplante_jid = self.agent.get("transplante_jid")
+        msg = Message(to=transplante_jid)
 
-        #print("Manager jid no hospital", manager_jid)
-        msg = Message(to=transplante_jid)  # Definindo o JID do receptor (manager)
-        msg.set_metadata("performative","registarRecetor")
+        msg.set_metadata("performative","registarOrgao")
 
         msg.body = jsonpickle.encode(objeto_orgao) # envia o objeto classe Taxi para o Manager
         await self.send(msg)

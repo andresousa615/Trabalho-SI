@@ -18,8 +18,8 @@ class TransporteBehaviour_registo(OneShotBehaviour):  # Envia uma mensagem para 
 
         transporte = Transporte(tipo_transporte, coordenada_x, coordenada_y, disponibilidade)
 
-        manager_jid = self.agent.get("manager_jid")
-        msg = Message(to=manager_jid)  # Definindo o JID do manager
+        transplante_jid = self.agent.get("transplante_jid")
+        msg = Message(to=transplante_jid)  # Definindo o JID do manager
         msg.set_metadata("performative", "registarTransporte")
 
         # Serializar o objeto transporte para enviar
