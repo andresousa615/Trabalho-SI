@@ -36,12 +36,25 @@ if __name__ == "__main__":
         future.result()
 
     # Inicializando os agentes Transportes
-    for i in range(10):  # ele cria 5 instÂncias diferentes, mas tem todas o mesmo jid, o que vai ser chato para depois tentar conversar com um taxi em específico
+
+    #iniciar helicopetro
+    i=0
+    transporte_jid = f"transporte_heli{i}@laptop-hjqmpgkj"
+    transporte_password = "NOPASSWORD"
+    transporte_agent = AgentTransporte(transporte_jid, transporte_password)
+    transporte_agent.set("transplante_jid", transplante_jid)
+    transporte_agent.set("helicopetro", 1)
+    future = transporte_agent.start()
+    future.result()
+    i+=1
+
+    for i in range(10):
 
         transporte_jid = f"transporte{i}@laptop-hjqmpgkj"
         transporte_password = "NOPASSWORD"
         transporte_agent = AgentTransporte(transporte_jid, transporte_password)
         transporte_agent.set("transplante_jid", transplante_jid)
+        transporte_agent.set("helicopetro", 0)
         future = transporte_agent.start()
         future.result()
 
@@ -56,7 +69,7 @@ if __name__ == "__main__":
 
     async def create_recetor_agents(hospital_jids):
         a=0
-        while a < 50:
+        while a < 10:
             for i in range(a,a+5):
                 recetor_jid = "recetor" + str(i) + "@laptop-hjqmpgkj"
                 recetor_password = "NOPASSWORD"
@@ -68,7 +81,7 @@ if __name__ == "__main__":
 
             # Espera 5 segundos antes de criar os próximos clientes
             await asyncio.sleep(10)
-            a += 10
+            a += 5
 
     try:
         asyncio.run(create_recetor_agents(hospital_jids))

@@ -25,7 +25,7 @@ class OrgaoBehaviour_gerarOrgao(PeriodicBehaviour): #envia uma mensagem para reg
         sangue= lista_tipo_sangue[sangue_index]
         orgao = lista_orgaos[orgao_index]
 
-        validade_orgao=random.randint(0, 1000)
+        validade_orgao=random.randint(500, 1000)
 
 
         jid_orgao = str(self.agent.jid)
