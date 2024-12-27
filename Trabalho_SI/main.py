@@ -10,7 +10,7 @@ from Trabalho_SI.Agentes.AgentTransplante import AgentTransplante
 
 if __name__ == "__main__":
 
-    transplante_jid = "manager@laptop-hjqmpgkj.mshome.net"  #
+    transplante_jid = "manager@laptop-hjqmpgkj"  #laptop-hjqmpgkj
     transplante_password = "NOPASSWORD"
 
     # Inicializando o agente Gestor
@@ -23,7 +23,7 @@ if __name__ == "__main__":
     # Inicializando o agente Hospital
     for i in range(5): #ele cria 5 instÂncias diferentes, mas tem todas o mesmo jid, o que vai ser chato para depois tentar conversar com um taxi em específico
 
-        hospital_jid = f"hospital{i}@laptop-hjqmpgkj.mshome.net"
+        hospital_jid = f"hospital{i}@laptop-hjqmpgkj"
         hospital_jids.append(hospital_jid)
         hospital_password = "NOPASSWORD"
         x, y = randrange(1, 1000), randrange(1, 1000)
@@ -38,14 +38,14 @@ if __name__ == "__main__":
     # Inicializando os agentes Transportes
     for i in range(10):  # ele cria 5 instÂncias diferentes, mas tem todas o mesmo jid, o que vai ser chato para depois tentar conversar com um taxi em específico
 
-        transporte_jid = f"transporte{i}@laptop-hjqmpgkj.mshome.net"
+        transporte_jid = f"transporte{i}@laptop-hjqmpgkj"
         transporte_password = "NOPASSWORD"
         transporte_agent = AgentTransporte(transporte_jid, transporte_password)
         transporte_agent.set("transplante_jid", transplante_jid)
         future = transporte_agent.start()
         future.result()
 
-    orgao_jid = "orgao@laptop-hjqmpgkj.mshome.net"  #
+    orgao_jid = "orgao@laptop-hjqmpgkj"  #
     orgao_password = "NOPASSWORD"
 
     # Inicializando o agente Orgao
@@ -58,7 +58,7 @@ if __name__ == "__main__":
         a=0
         while a < 50:
             for i in range(a,a+5):
-                recetor_jid = "recetor" + str(i) + "@laptop-hjqmpgkj.mshome.net"
+                recetor_jid = "recetor" + str(i) + "@laptop-hjqmpgkj"
                 recetor_password = "NOPASSWORD"
                 recetor_agent = AgentRecetor(recetor_jid, recetor_password)
                 recetor_agent.set("transplante_jid", transplante_jid)
