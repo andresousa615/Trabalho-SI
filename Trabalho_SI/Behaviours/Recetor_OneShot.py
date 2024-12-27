@@ -12,13 +12,16 @@ from Trabalho_SI.Classes.ClassHospital import Hospital
 class RecetorBehaviour_registo(OneShotBehaviour): #envia uma mensagem para registar 1 Taxi no Manager
     async def run(self):
         lista_urgencia=['Pouco Urgente','Medio Urgente','Muito Urgente','Emergencia']
+        probabilidades_urgencia = [0.35, 0.30, 0.25, 0.10]
+
         lista_tipo_sangue = ['A+','A-', 'B+','B-', 'AB+','AB-', 'O-', 'O+']
         lista_orgaos= ['coracao','figado','rim']
         #coordenadas de onde o Taxi vai spawnar
         x = randrange(0, 4)
         y = randrange(0, 8)
         z = randrange(0, 3)
-        urgencia=lista_urgencia[x]
+
+        urgencia = random.choices(lista_urgencia, weights=probabilidades_urgencia, k=1)[0]
         sangue= lista_tipo_sangue[y]
         orgao = lista_orgaos[z]
         jid_recetor = str(self.agent.jid)

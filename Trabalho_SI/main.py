@@ -69,7 +69,7 @@ if __name__ == "__main__":
 
     async def create_recetor_agents(hospital_jids):
         a=0
-        while a < 10:
+        while a < 20:
             for i in range(a,a+5):
                 recetor_jid = "recetor" + str(i) + "@laptop-hjqmpgkj"
                 recetor_password = "NOPASSWORD"
@@ -79,7 +79,7 @@ if __name__ == "__main__":
                 future = recetor_agent.start()
                 future.result()
 
-            # Espera 5 segundos antes de criar os próximos clientes
+            # Espera 10 segundos antes de criar os próximos clientes
             await asyncio.sleep(10)
             a += 5
 

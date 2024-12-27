@@ -45,6 +45,7 @@ class Orgao:
     def set_validade(self, validade: int):
         self.validade = validade
 
+
     # Representação em string
     def __str__(self):
         return (f"jid_orgao: {self.jid_orgao}, sangue: {self.sangue}, nome_orgao: {self.nome_orgao}, "

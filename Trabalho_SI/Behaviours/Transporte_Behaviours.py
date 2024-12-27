@@ -33,12 +33,11 @@ class TransporteBehaviour_registo(OneShotBehaviour):  # Envia uma mensagem para 
             print(f"Mensagem enviada para registrar transporte: {transporte}")
 
         else:
-            lista_tipo_transporte = ['Ambulância', 'Carro INEM', 'Ambulância', 'Ambulância', 'Ambulância', 'Ambulância', 'Ambulância', 'Ambulância', 'Ambulância', 'Carro INEM','Carro INEM','Carro INEM','Carro INEM','Carro INEM']
-            # Coordenadas de onde o transporte vai spawnar
-            i = randrange(0, 14)
-            disponibilidade = True  # O transporte pode estar disponível ou não
+            lista_tipo_transporte = ['Ambulância', 'Carro INEM']
+            probabilidades_transporte = [0.6, 0.4]
 
-            tipo_transporte = lista_tipo_transporte[i]
+            tipo_transporte = random.choices(lista_tipo_transporte, weights=probabilidades_transporte, k=1)[0]
+            disponibilidade = True  # O transporte pode estar disponível ou não
             coordenada_x = random.randint(0, 1000)  # Coordenada X aleatória
             coordenada_y = random.randint(0, 1000)  # Coordenada Y aleatória
 
@@ -61,7 +60,7 @@ class TransporteBehaviour_cyclic(CyclicBehaviour):
             performative = msg.get_metadata("performative")
 
             if performative == "iniciarViagem":  # adiciona o Hospital ao dicionário de Hospitals
-                print("Recebida mensagem do tipo 'iniciarViagem'")
+                print("Iniciado o transporte do orgão:")
                 if msg.body:
                     transplante_jid = str(msg.sender)
 
@@ -78,16 +77,16 @@ class TransporteBehaviour_cyclic(CyclicBehaviour):
 
                     tipo_transporte= transporte.get_tipo_transporte()
                     if tipo_transporte=="Ambulância":
-                        time = distancia_total / 300
-                        print(f'Tempo de viagem: {time}')
+                        time = distancia_total / 200
+                        print(f'Tempo de viagem: {round(time, 2)} horas')
                         await asyncio.sleep(time)
                     elif tipo_transporte=="Carro INEM":
-                        time=distancia_total / 400
-                        print(f'Tempo de viagem: {time}')
+                        time=distancia_total / 300
+                        print(f'Tempo de viagem: {round(time, 2)} horas')
                         await asyncio.sleep(time)
                     elif tipo_transporte=="Helicóptero":
                         time=distancia_total / 800
-                        print(f'Tempo de viagem: {time}')
+                        print(f'Tempo de viagem: {round(time, 2)} horas')
                         await asyncio.sleep(time)
 
                     hospital_msg = Message(to=hospital_jid)

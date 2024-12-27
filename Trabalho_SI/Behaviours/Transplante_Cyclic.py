@@ -7,6 +7,9 @@ import random
 from random import randrange
 import time as time
 
+from colorama import Fore, Back, Style, init
+init(autoreset=True)
+
 from Trabalho_SI.Classes.ClassRecetor import Recetor
 from Trabalho_SI.Classes.ClassHospital import Hospital
 from Trabalho_SI.Functions.transplante_functions import *
@@ -63,14 +66,16 @@ class TransplanteBehaviour_cyclic(CyclicBehaviour):
                     for recetores in self.recetores_dic.values():
                         todos_recetores.extend(recetores)
 
-                    # Determinar recetores compatíveis
-                    recetores_compativeis = determinar_recetores_compativeis(self.orgao_recebido, todos_recetores)
 
+                    # Determinar recetores compatíveis
+                    recetores_compativeis = determinar_recetores_compativeis(self.orgao_recebido, todos_recetores) #dá print dos recetores possíveis, e determina os compatíveis
+                    print('\n')
                     # Exibir recetores compatíveis
                     if recetores_compativeis:
-                        print("Recetores compatíveis (ordenados por prioridade):")
+                        print(Fore.GREEN + "Recetores compatíveis (ordenados por prioridade):")
                         for recetor in recetores_compativeis:
                             print(f"- {recetor}")
+                        print('\n')
 
                         selecao = determinar_recetor_transporte(recetores_compativeis, self.orgao_recebido, self.recetores_dic, self.hospitais_dic, self.transportes_dic)
                         #selecao = {'recetor_selecionado': recetor_em_causa, 'transporte': transporte_selecionado_jid}
@@ -84,7 +89,7 @@ class TransplanteBehaviour_cyclic(CyclicBehaviour):
                                     for recetor in self.recetores_dic[hospital_jid]:
                                         if recetor_selecionado == recetor:
                                             recetor.set_orgao_atribuido(True)
-                                            print("ATUALIZADO ATUALIZADO ATUALIZADO")
+                                            print(Fore.GREEN + f"Orgão {self.orgao_recebido.get_jid_orgao()} - {self.orgao_recebido.get_nome_orgao()}, atribuído ao Recetor {recetor.get_jid_recetor()}")
                                             break
 
                             hospital_msg = Message(to=hospital_jid)
@@ -109,6 +114,9 @@ class TransplanteBehaviour_cyclic(CyclicBehaviour):
 
                             await self.send(transporte_msg)
 
+                    else:
+                        print("Não existe nenhum recetor compatível com este orgão.")
+
                             #depois inf hospital, e hospital informar o transplante, timer no hopsital e cenas
 
             if performative == "viagemConcluida":  # adiciona o Hospital ao dicionário de Hospitals
@@ -124,8 +132,8 @@ class TransplanteBehaviour_cyclic(CyclicBehaviour):
                     self.transportes_dic[transporte_jid].set_x(hospital_recebido.get_coordenada_x())
                     self.transportes_dic[transporte_jid].set_y(hospital_recebido.get_coordenada_y())
 
-                    print(f'Hospital aonde foi o veículo: {hospital_recebido}')
-                    print(f'Veículo novamente disponível: {self.transportes_dic[transporte_jid]}')
+                    #print(f'Hospital aonde foi o veículo: {hospital_recebido}')
+                    print(Fore.GREEN + f'Veículo novamente disponível: {self.transportes_dic[transporte_jid]}')
 
 
 

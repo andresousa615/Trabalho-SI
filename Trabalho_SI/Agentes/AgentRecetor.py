@@ -8,6 +8,6 @@ class AgentRecetor(agent.Agent):
         super().__init__(jid, password)
 
     async def setup(self):
-        print(f"Agente Recetor {self.jid} inicializado.")
+        #print(f"Agente Recetor {self.jid} inicializado.")
         recetor_behaviour_oneshot = RecetorBehaviour_registo()
         self.add_behaviour(recetor_behaviour_oneshot)

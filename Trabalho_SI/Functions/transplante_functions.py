@@ -23,7 +23,7 @@ def determinar_recetores_compativeis(orgao, recetores):
     # Definição de prioridades de urgência
     prioridade = {"Emergencia": 1, "Muito Urgente": 2, "Medio Urgente": 3, "Pouco Urgente": 4}
 
-    print(orgao)
+    print('Possíveis Recetores: ')
     for recetor in recetores:
         if recetor.get_orgao_atribuido()==False:
             print(recetor)
@@ -65,12 +65,14 @@ def determinar_recetor_transporte(recetores_compativeis, orgao_recebido, recetor
             continue
 
         if hospital.salas > 0 and hospital.equipasMedicas > 0:
-            print(f"Hospital {hospital_jid} tem recursos disponíveis. Avaliando transporte...")
+            print(f"Hospital {hospital_jid} tem recursos disponíveis (salas: {hospital.salas}, equipas médicas: {hospital.equipasMedicas}).\n Avaliando transporte...")
 
             # Verificar se o recetor é emergência
             if recetor_em_causa.urgencia == 'Emergencia':
                 heli = transportes_dic.get('transporte_heli0@laptop-hjqmpgkj')
                 if heli and heli.get_disponibilidade():
+
+                    print("Helicópetro irá realizar o transporte do orgão.")
                     return( {'recetor_selecionado': recetor_em_causa, 'transporte': 'transporte_heli0@laptop-hjqmpgkj'} )
 
                 else:
@@ -80,10 +82,10 @@ def determinar_recetor_transporte(recetores_compativeis, orgao_recebido, recetor
 
                     if transporte_selecionado_jid==False:
                         print(
-                            f"Recetor {recetor_em_causa.jid_recetor} é de emergência, mas não tem transporte. Próximo recetor será avaliado.") #passa para o próximo recetor
+                            f"Recetor {recetor_em_causa.get_jid_recetor()} é de emergência, mas não tem transporte. Próximo recetor será avaliado.") #passa para o próximo recetor
                     else:
                         print(
-                            f"Foi selecionado o transporte {transporte_selecionado_jid} ao invés do Helicópetro")
+                            f"Foi selecionado o transporte {transportes_dic[transporte_selecionado_jid].get_tipo_transporte()} ao invés do Helicópetro, para transportar o orgão ao Recetor {recetor_em_causa.get_jid_recetor()}")
                         return( {'recetor_selecionado': recetor_em_causa, 'transporte': transporte_selecionado_jid} )
 
 
@@ -91,15 +93,15 @@ def determinar_recetor_transporte(recetores_compativeis, orgao_recebido, recetor
                 transporte_selecionado_jid = selecionar_transporte(recetor_em_causa, orgao_recebido, hospital, transportes_dic)
                 if transporte_selecionado_jid == False:
                     print(
-                        f"Recetor {recetor_em_causa.jid_recetor}, não tem transporte capaz de lhe entregar o orgão atempadamente. Próximo recetor será avaliado.")  # passa para o próximo recetor
+                        f"Recetor {recetor_em_causa.get_jid_recetor()}, não tem transporte capaz de lhe entregar o orgão atempadamente. Próximo recetor será avaliado.")  # passa para o próximo recetor
                 else:
                     print(
-                        f"Foi selecionado o transporte {transportes_dic[transporte_selecionado_jid]}.")
+                        f"Foi selecionado o transporte {transportes_dic[transporte_selecionado_jid].get_tipo_transporte()}, para transportar o orgão ao Recetor {recetor_em_causa.get_jid_recetor()}.")
                     return ({'recetor_selecionado': recetor_em_causa, 'transporte': transporte_selecionado_jid})
 
         else:
             print(
-                f"Hospital {hospital_jid} não tem recursos suficientes (salas: {hospital.salas}, equipas médicas: {hospital.equipasMedicas}). Próximo recetor será avaliado.")
+                f"Hospital {hospital_jid}, onde se encontra o Recetor {recetor_em_causa.get_jid_recetor()}, não tem recursos suficientes (salas: {hospital.salas}, equipas médicas: {hospital.equipasMedicas}). Próximo recetor será avaliado.")
 
     print("Não existe nenhum recetor compatível para este orgão dentro de uma distância viável.")
 
@@ -154,13 +156,17 @@ def selecionar_transporte(recetor, orgao_recebido, hospital, transportes_dic):
 
         if distancia_total <= orgao_recebido.get_validade():
             print(
-                f"Transporte terrestre selecionado: {transporte_mais_proximo.get_tipo_transporte()} foi selecionado. Distância do transporte até ao órgão: {distancia_orgao_transporte} km")
+                f"Transporte terrestre selecionado: {transporte_mais_proximo.get_tipo_transporte()}. Distância do transporte até ao órgão: {distancia_orgao_transporte} km")
             return jid_transporte_mais_proximo  # Retornar transporte terrestre mais próximo
 
-    # Se não houver transporte terrestre viável, verificar helicóptero
-    if distancia_total > orgao_recebido.get_validade() and helicopetro_disponivel and (urgencia=="Muito Urgente"):
-        print(f"Distância excede a validade do órgão. Medida de contingência ativada, utiliza-se o helicóptero {helicopetro_disponivel}.")
-        return helicopetro_disponivel
+        # Se não houver transporte terrestre viável, verificar helicóptero
+        if distancia_total > orgao_recebido.get_validade() and helicopetro_disponivel and (urgencia=="Muito Urgente"):
+            print(f"Distância excede a validade do órgão. Medida de contingência ativada, utiliza-se o helicóptero {helicopetro_disponivel} para transporte do orgão.")
+            return helicopetro_disponivel
+
+    elif transporte_mais_proximo is None and helicopetro_disponivel and urgencia== "Muito Urgente":
+            print(f"Não existe nenhum veículo disponível. Medida de contingência ativada, utiliza-se o helicóptero {helicopetro_disponivel} para transporte do orgão.")
+            return helicopetro_disponivel
 
     print("Nenhum transporte disponível ou adequado encontrado.")
     return False

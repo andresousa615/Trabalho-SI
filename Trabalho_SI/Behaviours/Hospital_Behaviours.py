@@ -33,6 +33,12 @@ class HospitalBehaviour_registo(OneShotBehaviour):
         await self.send(msg)
         #print(f"Hospital {self.agent.jid} registado com o gestor. Detalhes: Coordenadas ({x}, {y}), Equipas: {nr_equipas}, Salas: {nr_salas}")
 
+class HospitalPeriodicBehaviour(PeriodicBehaviour): #envia uma mensagem para registar 1 Orgao no Transplante
+    async def run(self):
+        print(f"Lista de Recetores que já sofreram transplante no Hospital {self.agent.jid}:")
+        for recetor in self.agent.lista_recetores_salvos:
+            print(recetor)
+        print("\n")
 
 
 
@@ -67,32 +73,32 @@ class HospitalReceiveRecetorBehaviour(CyclicBehaviour):
                     await self.send(msg)
 
             if performative == "orgaoAtribuido":
-                print(f"Mensagem recebida para atualizar recetor no hospital - orgaoAtribuido")
+                #print(f"Mensagem recebida para atualizar recetor no hospital - orgaoAtribuido")
                 if msg.body:
 
                     recetor_recebido = jsonpickle.decode(msg.body)  # Decodifica o objeto Recetor
-                    print(f'recetor_Recebido {recetor_recebido}.')
+                    #print(f'recetor_Recebido {recetor_recebido}.')
                     lista_recetores = self.agent.lista_recetores
                     recetor_encontrado=False
                     for recetor in lista_recetores:
                         if recetor.get_jid_recetor()==recetor_recebido.get_jid_recetor():
                             recetor.set_orgao_atribuido(True)
-                            print(f'Recetor atualizado: {recetor}')
+                            #print(f'Recetor atualizado: {recetor}')
                             recetor_encontrado=True
                     if not recetor_encontrado:
-                        print("Não encontrou o recetor")
+                            print("NÃO ENCONTROU O RECETOR NESTE HOSPITAL")
 
 
                     '''for recetor in self.agent.lista_recetores:
                         print(f'Recetor HOSP: {recetor}')'''
 
             if performative == "orgaoEntregue":
-                print(f"Orgao Recebido para um Recetor - orgaoEntregue")
+                #print(f"Orgao Recebido para um Recetor - orgaoEntregue")
                 if msg.body:
 
                     recetor_recebido = jsonpickle.decode(msg.body)  # Decodifica o objeto Recetor
 
-                    print(f'Recetor vai realizar o transplante: {recetor_recebido}.')
+                    print(f'Orgão entregue ao Recetor {recetor_recebido.get_jid_recetor()} que vai realizar o transplante, no Hospital {self.agent.jid}.')
 
                     self.agent.nr_equipas-=1
                     self.agent.nr_salas-=1
@@ -131,6 +137,7 @@ class HospitalReceiveRecetorBehaviour(CyclicBehaviour):
 
 
                     print(f"Operação de transplante ao Recetor {recetor_recebido.get_jid_recetor()} Concluída com Sucesso.")
+                    self.agent.add_recetor_salvos(recetor_recebido) #adiciona o recetor à lista do dos agentes Recetor salvos
 
                     self.agent.nr_equipas += 1
                     self.agent.nr_salas += 1
