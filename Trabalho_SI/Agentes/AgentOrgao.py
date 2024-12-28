@@ -1,5 +1,4 @@
 import time
-
 from Trabalho_SI.Behaviours.Orgao_Periodic import *
 
 
@@ -14,3 +13,4 @@ class AgentOrgao(agent.Agent):
         print(f"Agente Orgao {self.jid} inicializado.")
         orgao_behaviour_periodic = OrgaoBehaviour_gerarOrgao(period=4)
         self.add_behaviour(orgao_behaviour_periodic)
+

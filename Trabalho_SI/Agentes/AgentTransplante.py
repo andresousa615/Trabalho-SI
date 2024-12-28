@@ -12,4 +12,6 @@ class AgentTransplante(agent.Agent):
         print(f"Transplante Agent {self.jid} está ativo")
         transplante_behaviour_cyclic = TransplanteBehaviour_cyclic()
         self.add_behaviour(transplante_behaviour_cyclic)
+
+
    

@@ -17,10 +17,10 @@ class AgentHospital(agent.Agent):
     async def setup(self):
         print(f"Hospital Agent {self.jid} está ativo")
         hospital_behaviour_registar = HospitalBehaviour_registo()
-        hospital_behaviour_registarRecetor = HospitalReceiveRecetorBehaviour()
+        hospital_behaviour_receive = HospitalReceiveBehaviour()
         hospital_behaviour_periodic = HospitalPeriodicBehaviour(period=30)
         self.add_behaviour(hospital_behaviour_registar)
-        self.add_behaviour(hospital_behaviour_registarRecetor)
+        self.add_behaviour(hospital_behaviour_receive)
         self.add_behaviour(hospital_behaviour_periodic)
 
     def add_recetor(self, recetor):

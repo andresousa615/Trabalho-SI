@@ -7,7 +7,8 @@ import random
 from random import randrange
 from Trabalho_SI.Classes.ClassHospital import Hospital
 
-
+from colorama import Fore, Back, Style, init
+init(autoreset=True)
 
 class HospitalBehaviour_registo(OneShotBehaviour):
     async def run(self):
@@ -42,7 +43,7 @@ class HospitalPeriodicBehaviour(PeriodicBehaviour): #envia uma mensagem para reg
 
 
 
-class HospitalReceiveRecetorBehaviour(CyclicBehaviour):
+class HospitalReceiveBehaviour(CyclicBehaviour):
     async def run(self):
         msg = await self.receive(timeout=10)  # Aguarda mensagens
         if msg:
@@ -129,14 +130,14 @@ class HospitalReceiveRecetorBehaviour(CyclicBehaviour):
                     # Envia a mensagem
                     await self.send(msg)
 
-                    print(f"Operação de transplante ao Recetor {recetor_recebido.get_jid_recetor()} iniciada.")
+                    print(Fore.BLUE +f"Operação de transplante ao Recetor {recetor_recebido.get_jid_recetor()} iniciada.")
                     await asyncio.sleep(5) #tempo até as equipas/salas voltarem a estar disponíveis
                     #mata-se o agente recetor e o orgão(?)
 
 
 
 
-                    print(f"Operação de transplante ao Recetor {recetor_recebido.get_jid_recetor()} Concluída com Sucesso.")
+                    print(Fore.BLUE +f"Operação de transplante ao Recetor {recetor_recebido.get_jid_recetor()} Concluída com Sucesso.")
                     self.agent.add_recetor_salvos(recetor_recebido) #adiciona o recetor à lista do dos agentes Recetor salvos
 
                     self.agent.nr_equipas += 1
