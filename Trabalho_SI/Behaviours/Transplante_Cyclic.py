@@ -115,7 +115,7 @@ class TransplanteBehaviour_cyclic(CyclicBehaviour):
                             await self.send(transporte_msg)
 
                     else:
-                        print("Não existe nenhum recetor compatível com este orgão.")
+                        print(Fore.YELLOW + "Não existe nenhum recetor compatível com este orgão.")
 
                             #depois inf hospital, e hospital informar o transplante, timer no hopsital e cenas
 

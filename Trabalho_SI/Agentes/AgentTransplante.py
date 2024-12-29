@@ -14,4 +14,3 @@ class AgentTransplante(agent.Agent):
         self.add_behaviour(transplante_behaviour_cyclic)
 
 
-   

@@ -1,4 +1,6 @@
 import math
+from colorama import Fore, Back, Style, init
+init(autoreset=True)
 
 def determinar_recetores_compativeis(orgao, recetores):
     """
@@ -53,6 +55,9 @@ def determinar_recetor_transporte(recetores_compativeis, orgao_recebido, recetor
             if recetor_em_causa in recetores:
                 hospital_jid = jid_hospital
                 break
+
+        print(Fore.CYAN +
+            f"A avaliar as condições para o transplante do Recetor: {recetor_em_causa.get_jid_recetor()} ")
 
         if hospital_jid is None:
             print(f"Hospital do recetor {recetor_em_causa.get_jid_recetor()} não encontrado.")
@@ -161,11 +166,11 @@ def selecionar_transporte(recetor, orgao_recebido, hospital, transportes_dic):
 
         # Se não houver transporte terrestre viável, verificar helicóptero
         if distancia_total > orgao_recebido.get_validade() and helicopetro_disponivel and (urgencia=="Muito Urgente"):
-            print(f"Distância excede a validade do órgão. Medida de contingência ativada, utiliza-se o helicóptero {helicopetro_disponivel} para transporte do orgão.")
+            print(Fore.MAGENTA + f"Distância excede a validade do órgão. Medida de contingência ativada, utiliza-se o helicóptero {helicopetro_disponivel} para transporte do orgão.")
             return helicopetro_disponivel
 
     elif transporte_mais_proximo is None and helicopetro_disponivel and urgencia== "Muito Urgente":
-            print(f"Não existe nenhum veículo disponível. Medida de contingência ativada, utiliza-se o helicóptero {helicopetro_disponivel} para transporte do orgão.")
+            print(Fore.MAGENTA + f"Não existe nenhum veículo disponível. Medida de contingência ativada, utiliza-se o helicóptero {helicopetro_disponivel} para transporte do orgão.")
             return helicopetro_disponivel
 
     print("Nenhum transporte disponível ou adequado encontrado.")
