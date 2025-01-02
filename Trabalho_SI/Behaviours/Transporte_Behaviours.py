@@ -8,7 +8,10 @@ import jsonpickle
 import random
 from Trabalho_SI.Classes.ClassTransporte import *
 from Trabalho_SI.Functions.transporte_functions import *
+from Trabalho_SI.Classes.ClassPedidoTransporte import PedidoTransporte
 
+from colorama import Fore, Back, Style, init
+init(autoreset=True)
 
 class TransporteBehaviour_registo(OneShotBehaviour):  # Envia uma mensagem para registar um transporte no Manager
     async def run(self):
@@ -64,12 +67,18 @@ class TransporteBehaviour_cyclic(CyclicBehaviour):
                 if msg.body:
                     transplante_jid = str(msg.sender)
 
-                    dic_transplante = jsonpickle.decode(msg.body)
-                    recetor=dic_transplante["recetor"]
-                    orgao=dic_transplante["orgao"]
-                    hospital_jid = dic_transplante["hospital"][0]
-                    hospital = dic_transplante["hospital"][1]
-                    transporte=dic_transplante["transporte"]
+                    #dic_transplante = jsonpickle.decode(msg.body)
+                    pedido_transporte = jsonpickle.decode(msg.body)
+
+
+                    recetor = pedido_transporte.get_recetor_selecionado()
+                    orgao = pedido_transporte.get_orgao()
+                    hospital_jid = pedido_transporte.get_hospital_jid()
+                    hospital = pedido_transporte.get_hospital_obj()
+                    transporte = pedido_transporte.get_transporte()
+
+#                    print(Fore.MAGENTA + f"recetor {recetor}, orgao {orgao}, hos:jid {hospital_jid}, hospital: {hospital}, transporte {transporte}")
+
 
                     distancia_orgao_transporte=calcular_distancia(orgao.get_x(), orgao.get_y(), transporte.get_x(), transporte.get_y())
                     distancia_orgao_hospital = calcular_distancia(orgao.get_x(), orgao.get_y(), hospital.get_coordenada_x(), hospital.get_coordenada_y())

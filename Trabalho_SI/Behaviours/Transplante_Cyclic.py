@@ -12,7 +12,11 @@ init(autoreset=True)
 
 from Trabalho_SI.Classes.ClassRecetor import Recetor
 from Trabalho_SI.Classes.ClassHospital import Hospital
+from Trabalho_SI.Classes.ClassPedidoTransporte import PedidoTransporte
 from Trabalho_SI.Functions.transplante_functions import *
+
+
+
 
 class TransplanteBehaviour_cyclic(CyclicBehaviour):
     hospitais_dic = {}  # {"jid_hospital": Classe Hospital}
@@ -108,9 +112,8 @@ class TransplanteBehaviour_cyclic(CyclicBehaviour):
                             transporte_msg = Message(to=jid_transporte_selecionado)
                             transporte_msg.set_metadata("performative", "iniciarViagem")
 
-                            dic_transplante={"recetor": recetor_selecionado, "orgao": self.orgao_recebido, "hospital": (hospital_jid,self.hospitais_dic[hospital_jid]), "transporte": self.transportes_dic[jid_transporte_selecionado] }
-
-                            transporte_msg.body = jsonpickle.encode(dic_transplante)
+                            pedido_transporte= PedidoTransporte(recetor_selecionado, self.orgao_recebido, hospital_jid, self.hospitais_dic[hospital_jid], self.transportes_dic[jid_transporte_selecionado])
+                            transporte_msg.body = jsonpickle.encode(pedido_transporte)
 
                             await self.send(transporte_msg)
 
